@@ -4,9 +4,9 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
 const users = require('./routes/users');
 const chat = require('./routes/chat');
-const WS = require('ws');
 
 const app = express();
 
@@ -22,8 +22,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/chat', chat);
+app.use('/', chat);
 app.use('/users', users);
+
+app.ready = server => {
+  chat.webSocket(server);
+};
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
