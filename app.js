@@ -25,9 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', chat);
 app.use('/users', users);
 
-app.ready = server => {
-  chat.webSocket(server);
-};
+// app.ready = server => {
+//   chat.webSocket(server);
+// };
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
